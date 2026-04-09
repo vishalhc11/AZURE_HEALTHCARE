@@ -1,0 +1,9 @@
+{
+	"name": "adfhealthcareVishal",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b4e7f86b-d7e3-4ddf-b128-db518d459d3c",
+		"tenantId": "f3cfe768-3deb-4888-9d2d-fe1b7ed52dc2"
+	}
+}
