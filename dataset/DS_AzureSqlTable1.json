@@ -1,0 +1,39 @@
+{
+	"name": "DS_AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "FILENAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LastWatermarkValue",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "LastUpadedfileDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "IsFullLoad",
+				"type": "bit"
+			},
+			{
+				"name": "Active",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "WatermarkControl"
+		}
+	}
+}
