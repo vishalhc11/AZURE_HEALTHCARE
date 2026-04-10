@@ -75,7 +75,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"p_file_name": {
-														"value": "item().FILENAME",
+														"value": "@concat('clientdata/health_care_dir/', item().FILENAME)",
 														"type": "Expression"
 													}
 												}
