@@ -53,7 +53,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(item().ISFULLLOAD,1)",
+									"value": "@item().ISFULLLOAD",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
