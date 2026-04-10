@@ -71,8 +71,14 @@
 										"userProperties": [],
 										"typeProperties": {
 											"dataset": {
-												"referenceName": "DS_SRC_Clientdata",
-												"type": "DatasetReference"
+												"referenceName": "DS_clientdata",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_file_name": {
+														"value": "item().FILENAME",
+														"type": "Expression"
+													}
+												}
 											},
 											"fieldList": [
 												"childItems",
