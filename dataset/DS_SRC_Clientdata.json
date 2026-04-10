@@ -1,0 +1,60 @@
+{
+	"name": "DS_SRC_Clientdata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Src_AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "health_care_dir",
+				"fileSystem": "clientdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "department_id",
+				"type": "String"
+			},
+			{
+				"name": "department_name",
+				"type": "String"
+			},
+			{
+				"name": "department_head",
+				"type": "String"
+			},
+			{
+				"name": "floor_number",
+				"type": "String"
+			},
+			{
+				"name": "building",
+				"type": "String"
+			},
+			{
+				"name": "contact_number",
+				"type": "String"
+			},
+			{
+				"name": "opening_time",
+				"type": "String"
+			},
+			{
+				"name": "closing_time",
+				"type": "String"
+			},
+			{
+				"name": "active_flag",
+				"type": "String"
+			}
+		]
+	}
+}
