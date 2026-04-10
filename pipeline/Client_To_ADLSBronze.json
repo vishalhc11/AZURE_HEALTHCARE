@@ -68,12 +68,7 @@
 											"secureOutput": false,
 											"secureInput": false
 										},
-										"userProperties": [
-											{
-												"name": "p_file_name",
-												"value": "@item().FILENAME"
-											}
-										],
+										"userProperties": [],
 										"typeProperties": {
 											"source": {
 												"type": "DelimitedTextSource",
@@ -86,12 +81,49 @@
 													"type": "DelimitedTextReadSettings"
 												}
 											},
-											"enableStaging": false
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
 										},
 										"inputs": [
 											{
 												"referenceName": "DS_clientdata",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"p_file_name": {
+														"value": "@item().FILENAME",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_healthcare",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_dest_file_name": {
+														"value": "@item().FILENAME",
+														"type": "Expression"
+													}
+												}
 											}
 										]
 									}
