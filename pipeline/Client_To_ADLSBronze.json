@@ -71,13 +71,10 @@
 										"userProperties": [],
 										"typeProperties": {
 											"dataset": {
-												"referenceName": "DS_clientdata",
+												"referenceName": "DelimitedText1",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_file_name": {
-														"value": "@concat('clientdata/health_care_dir/', item().FILENAME)",
-														"type": "Expression"
-													}
+													"p_full_file_path": "@concat('clientdata/health_care_dir/', item().FILENAME)"
 												}
 											},
 											"fieldList": [
