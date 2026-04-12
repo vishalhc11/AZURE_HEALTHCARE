@@ -111,19 +111,52 @@
 												"storeSettings": {
 													"type": "AzureBlobFSReadSettings",
 													"recursive": false,
-													"wildcardFileName": "*.csv",
 													"enablePartitionDiscovery": false
 												},
 												"formatSettings": {
 													"type": "DelimitedTextReadSettings"
 												}
 											},
-											"enableStaging": false
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
 										},
 										"inputs": [
 											{
-												"referenceName": "DS_COPY_INCREMENTAL",
-												"type": "DatasetReference"
+												"referenceName": "DS_clientdata",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_file_name": {
+														"value": "item().FILENAME",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_healthcare",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_dest_file_name": "item().FILENAME"
+												}
 											}
 										]
 									}
