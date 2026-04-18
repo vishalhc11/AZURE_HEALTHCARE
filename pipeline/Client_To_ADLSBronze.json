@@ -147,7 +147,7 @@
 										]
 									},
 									{
-										"name": "Lookup1",
+										"name": "Lookup_update",
 										"type": "Lookup",
 										"dependsOn": [
 											{
@@ -186,7 +186,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"items": {
-												"value": "@activity('Get Metadata2').output",
+												"value": "@activity('Get Metadata2').output.lastModified",
 												"type": "Expression"
 											},
 											"condition": {
