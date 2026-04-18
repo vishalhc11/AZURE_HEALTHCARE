@@ -66,7 +66,7 @@
 								},
 								"ifFalseActivities": [
 									{
-										"name": "Copy_Data",
+										"name": "Copy_Data_With_Full_Load_copy1",
 										"type": "Copy",
 										"dependsOn": [],
 										"policy": {
@@ -82,7 +82,7 @@
 												"type": "DelimitedTextSource",
 												"storeSettings": {
 													"type": "AzureBlobFSReadSettings",
-													"recursive": false,
+													"recursive": true,
 													"enablePartitionDiscovery": false
 												},
 												"formatSettings": {
@@ -112,11 +112,13 @@
 										},
 										"inputs": [
 											{
-												"referenceName": "DS_clientdata",
+												"referenceName": "DS_PARAM_FOLDERLEVEL",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_file_name": {
-														"value": "@item().FILENAME",
+													"p_container": "clientdata",
+													"p_folder": "health_care_dir",
+													"p_file": {
+														"value": "@item().filename",
 														"type": "Expression"
 													}
 												}
@@ -124,11 +126,13 @@
 										],
 										"outputs": [
 											{
-												"referenceName": "DS_healthcare",
+												"referenceName": "DS_PARAM_FOLDERLEVEL",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_dest_file_name": {
-														"value": "@item().FILENAME",
+													"p_container": "healthcare",
+													"p_folder": "bronze",
+													"p_file": {
+														"value": "@item().filename",
 														"type": "Expression"
 													}
 												}
