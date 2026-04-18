@@ -270,6 +270,42 @@
 												}
 											}
 										]
+									},
+									{
+										"name": "Lookup_full",
+										"type": "Lookup",
+										"dependsOn": [
+											{
+												"activity": "Copy_Data_With_Full_Load",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "AzureSqlSource",
+												"sqlReaderQuery": {
+													"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= 'activity('Get Metadata2').output.lastModified'\nwhere Active=1\nand filename = 'item().filename'",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"dataset": {
+												"referenceName": "DS_AzureSqlTable1",
+												"type": "DatasetReference"
+											},
+											"firstRowOnly": false
+										}
 									}
 								]
 							}
