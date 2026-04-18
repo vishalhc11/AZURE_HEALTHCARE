@@ -31,13 +31,21 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Lookup_Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
 						"value": "@activity('Lookup_Watermark').output.value",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "If Condition1",
@@ -176,11 +184,13 @@
 										},
 										"inputs": [
 											{
-												"referenceName": "DS_clientdata",
+												"referenceName": "DS_PARAM_FOLDERLEVEL",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_file_name": {
-														"value": "@item().FILENAME",
+													"p_container": "clientdata",
+													"p_folder": "health_care_dir",
+													"p_file": {
+														"value": "@item().filename",
 														"type": "Expression"
 													}
 												}
@@ -188,11 +198,13 @@
 										],
 										"outputs": [
 											{
-												"referenceName": "DS_healthcare",
+												"referenceName": "DS_PARAM_FOLDERLEVEL",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_dest_file_name": {
-														"value": "@item().FILENAME",
+													"p_container": "healthcare",
+													"p_folder": "bronze",
+													"p_file": {
+														"value": "@item().filename",
 														"type": "Expression"
 													}
 												}
