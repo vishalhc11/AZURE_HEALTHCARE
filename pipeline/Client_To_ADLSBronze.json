@@ -226,18 +226,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText2",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_file_name": {
-								"value": "@item.FILENAME",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DS_PARAM_FOLDERLEVEL",
+						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"lastModified"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"enablePartitionDiscovery": false
