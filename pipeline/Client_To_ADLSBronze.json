@@ -48,6 +48,43 @@
 					"isSequential": false,
 					"activities": [
 						{
+							"name": "Get Metadata2",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_PARAM_FOLDERLEVEL",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_container": "clientdata",
+										"p_folder": "health_care_dir",
+										"p_file": {
+											"value": "@item().filename",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"lastModified"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							}
+						},
+						{
 							"name": "If Condition1",
 							"type": "IfCondition",
 							"dependsOn": [
@@ -214,50 +251,21 @@
 												}
 											}
 										]
-									},
-									{
-										"name": "Lookup_full",
-										"type": "Lookup",
-										"dependsOn": [
-											{
-												"activity": "Copy_Data_With_Full_Load",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "AzureSqlSource",
-												"sqlReaderQuery": {
-													"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= 'activity('Get Metadata2').output.lastModified'\nwhere Active=1\nand filename = 'item().filename'",
-													"type": "Expression"
-												},
-												"queryTimeout": "02:00:00",
-												"partitionOption": "None"
-											},
-											"dataset": {
-												"referenceName": "DS_AzureSqlTable1",
-												"type": "DatasetReference"
-											},
-											"firstRowOnly": false
-										}
 									}
 								]
 							}
 						},
 						{
-							"name": "Get Metadata2",
-							"type": "GetMetadata",
-							"dependsOn": [],
+							"name": "Lookup_update",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "If Condition1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -267,28 +275,20 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= 'activity('Get Metadata2').output.lastModified'\nwhere Active=1\nand filename = 'item().filename'",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
 								"dataset": {
-									"referenceName": "DS_PARAM_FOLDERLEVEL",
-									"type": "DatasetReference",
-									"parameters": {
-										"p_container": "clientdata",
-										"p_folder": "health_care_dir",
-										"p_file": {
-											"value": "@item().filename",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "DS_AzureSqlTable1",
+									"type": "DatasetReference"
 								},
-								"fieldList": [
-									"lastModified"
-								],
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
+								"firstRowOnly": false
 							}
 						}
 					]
