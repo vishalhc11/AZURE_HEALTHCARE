@@ -68,7 +68,14 @@
 									{
 										"name": "Copy_Data_With_Increment_load",
 										"type": "Copy",
-										"dependsOn": [],
+										"dependsOn": [
+											{
+												"activity": "Filter1",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -142,7 +149,14 @@
 									{
 										"name": "Lookup1",
 										"type": "Lookup",
-										"dependsOn": [],
+										"dependsOn": [
+											{
+												"activity": "Copy_Data_With_Increment_load",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -154,13 +168,30 @@
 										"typeProperties": {
 											"source": {
 												"type": "AzureSqlSource",
-												"sqlReaderQuery": "\nupdate [dbo].[WatermarkControl]\nset lastUpadedfileDate = GETDATE() \nwhere Active=1\nand filename = '@item().filename'",
+												"sqlReaderQuery": "\nupdate [dbo].[WatermarkControl]\nset lastwatermarkvalue= GETDATE() \nwhere Active=1\nand filename = '@item().filename'",
 												"queryTimeout": "02:00:00",
 												"partitionOption": "None"
 											},
 											"dataset": {
 												"referenceName": "DS_AzureSqlTable1",
 												"type": "DatasetReference"
+											},
+											"firstRowOnly": false
+										}
+									},
+									{
+										"name": "Filter1",
+										"type": "Filter",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"items": {
+												"value": "@activity('Get Metadata2').output",
+												"type": "Expression"
+											},
+											"condition": {
+												"value": "@greater(activity('Get Metadata2').output.lastModified,item().lastwatermarkvalue)",
+												"type": "Expression"
 											}
 										}
 									}
