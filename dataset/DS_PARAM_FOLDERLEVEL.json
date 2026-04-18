@@ -1,0 +1,29 @@
+{
+	"name": "DS_PARAM_FOLDERLEVEL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_container": {
+				"type": "string"
+			},
+			"p_folder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
