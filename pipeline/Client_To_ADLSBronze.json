@@ -257,8 +257,8 @@
 							}
 						},
 						{
-							"name": "Lookup_update",
-							"type": "Lookup",
+							"name": "Stored procedure1",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
 									"activity": "If Condition1",
@@ -276,27 +276,21 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderStoredProcedureName": "[dbo].[UpdateWatermark]",
-									"storedProcedureParameters": {
-										"FileName": {
-											"type": "String",
-											"value": "@item().filename"
-										},
-										"LastModified": {
-											"type": "DateTime",
-											"value": "@activity('Get Metadata2').output.lastModified"
-										}
+								"storedProcedureName": "[dbo].[UpdateWatermark]",
+								"storedProcedureParameters": {
+									"FileName": {
+										"value": "@item().filename",
+										"type": "String"
 									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"dataset": {
-									"referenceName": "DS_AzureSqlTable1",
-									"type": "DatasetReference"
-								},
-								"firstRowOnly": false
+									"LastModified": {
+										"value": "@activity('Get Metadata2').output.lastModified",
+										"type": "DateTime"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
