@@ -278,9 +278,16 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= @{activity('Get Metadata2').output.lastModified}\nwhere Active=1\nand filename = @{item().filename}",
-										"type": "Expression"
+									"sqlReaderStoredProcedureName": "[dbo].[UpdateWatermark]",
+									"storedProcedureParameters": {
+										"FileName": {
+											"type": "String",
+											"value": "@item().filename"
+										},
+										"LastModified": {
+											"type": "DateTime",
+											"value": "@activity('Get Metadata2').output.lastModified"
+										}
 									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
