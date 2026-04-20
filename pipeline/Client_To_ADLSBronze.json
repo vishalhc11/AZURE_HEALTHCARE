@@ -77,6 +77,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -278,7 +279,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= 'activity('Get Metadata2').output.lastModified'\nwhere Active=1\nand filename = 'item().filename'",
+										"value": "@update [dbo].[WatermarkControl]\nset lastwatermarkvalue= @{activity('Get Metadata2').output.lastModified}\nwhere Active=1\nand filename = @{item().filename}",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
