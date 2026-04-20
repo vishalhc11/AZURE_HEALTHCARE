@@ -252,45 +252,45 @@
 												}
 											}
 										]
+									},
+									{
+										"name": "Stored procedure1",
+										"type": "SqlServerStoredProcedure",
+										"dependsOn": [
+											{
+												"activity": "Copy_Data_With_Increment_load",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"storedProcedureName": "[dbo].[UpdateWatermark]",
+											"storedProcedureParameters": {
+												"FileName": {
+													"value": "@item().filename",
+													"type": "String"
+												},
+												"LastModified": {
+													"value": "@activity('Get Metadata2').output.lastModified",
+													"type": "DateTime"
+												}
+											}
+										},
+										"linkedServiceName": {
+											"referenceName": "LS_AzureSqlDatabase1",
+											"type": "LinkedServiceReference"
+										}
 									}
 								]
-							}
-						},
-						{
-							"name": "Stored procedure1",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "If Condition1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[UpdateWatermark]",
-								"storedProcedureParameters": {
-									"FileName": {
-										"value": "@item().filename",
-										"type": "String"
-									},
-									"LastModified": {
-										"value": "@activity('Get Metadata2').output.lastModified",
-										"type": "DateTime"
-									}
-								}
-							},
-							"linkedServiceName": {
-								"referenceName": "LS_AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
 							}
 						}
 					]
