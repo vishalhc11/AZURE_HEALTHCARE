@@ -99,21 +99,16 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@item().ISFULLLOAD",
+									"value": "@greater(\n    ticks(activity('Get Metadata2').output.lastModified),\n    ticks(item().lastwatermarkvalue)\n)",
 									"type": "Expression"
 								},
-								"ifFalseActivities": [
+								"ifTrueActivities": [
 									{
-										"name": "Copy_Data_With_Increment_load",
+										"name": "Copy_Data_With_Full_Load",
 										"type": "Copy",
-										"dependsOn": [
-											{
-												"activity": "Filter1",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
+										"dependsOn": [],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -185,25 +180,7 @@
 										]
 									},
 									{
-										"name": "Filter1",
-										"type": "Filter",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"items": {
-												"value": "@activity('Get Metadata2').output",
-												"type": "Expression"
-											},
-											"condition": {
-												"value": "@greater(activity('Get Metadata2').output.lastModified,item().lastwatermarkvalue)",
-												"type": "Expression"
-											}
-										}
-									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "Copy_Data_With_Full_Load",
+										"name": "Copy_Data_With_Increment_load",
 										"type": "Copy",
 										"dependsOn": [],
 										"policy": {
