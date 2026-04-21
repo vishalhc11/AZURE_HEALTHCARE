@@ -114,7 +114,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_tablename": {
-											"value": "@replace(item().filename,'.csv','')",
+											"value": "@concat('STG_',replace(item().filename,'.csv',''))",
 											"type": "Expression"
 										}
 									}
@@ -142,7 +142,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat(\n'IF OBJECT_ID(N''[dbo].[', replace(item().filename,'.csv',''), ']'', ''U'') IS NOT NULL\nBEGIN\n    TRUNCATE TABLE [dbo].[', replace(item().filename,'.csv',''), '];\nEND'\n)",
+											"value": "@concat(\n'IF OBJECT_ID(N''[dbo].[STG_', replace(item().filename,'.csv',''), ']'', ''U'') IS NOT NULL\nBEGIN\n    TRUNCATE TABLE [dbo].[STG_', replace(item().filename,'.csv',''), '];\nEND'\n)",
 											"type": "Expression"
 										}
 									}
