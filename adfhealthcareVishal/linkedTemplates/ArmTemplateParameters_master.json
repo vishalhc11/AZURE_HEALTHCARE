@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfhealthcareVishal"
+		},
+		"LS_AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"LS_Dst_AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"LS_Src_AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"ls_datalake_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "intellibisqlbd.database.windows.net"
+		},
+		"LS_AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "ASQL_MI_DB"
+		},
+		"LS_AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"LS_Dst_AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://azstorageacct9768085663.dfs.core.windows.net/"
+		},
+		"LS_Src_AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://azstorageacct9768085663.dfs.core.windows.net/"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"value": "https://azstorageacct9768085663.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
